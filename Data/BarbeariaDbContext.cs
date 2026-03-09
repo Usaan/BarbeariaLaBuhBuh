@@ -18,15 +18,20 @@ public class BarbeariaDbContext(DbContextOptions<BarbeariaDbContext> options) : 
         modelBuilder.Entity<Client>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.LastName).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Phone).IsRequired().HasMaxLength(20);
+            entity.Property(e => e.GoogleId).HasMaxLength(100);
+            entity.Property(e => e.GooglePictureUrl).HasMaxLength(500);
+            entity.HasIndex(e => e.GoogleId).IsUnique();
         });
 
         modelBuilder.Entity<Barber>(entity =>
         {
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.FirstName).IsRequired().HasMaxLength(100);
+            entity.Property(e => e.LastName).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Email).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Phone).IsRequired().HasMaxLength(20);
             entity.Property(e => e.Bio).HasMaxLength(500);
@@ -40,6 +45,7 @@ public class BarbeariaDbContext(DbContextOptions<BarbeariaDbContext> options) : 
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Category).IsRequired();
             entity.Property(e => e.DurationMinutes).IsRequired();
             entity.Property(e => e.Price).IsRequired().HasColumnType("decimal(10,2)");
             entity.Property(e => e.IsActive).HasDefaultValue(true);

@@ -81,7 +81,8 @@ public class ClientsController : ControllerBase
         if (client is null)
             return NotFound();
 
-        if (dto.Name is not null) client.Name = dto.Name;
+        if (dto.FirstName is not null) client.FirstName = dto.FirstName;
+        if (dto.LastName is not null) client.LastName = dto.LastName;
         if (dto.Email is not null) client.Email = dto.Email;
         if (dto.Phone is not null) client.Phone = dto.Phone;
 

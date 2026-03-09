@@ -9,8 +9,11 @@ public class BarberService(IBarberRepository repository) : IBarberService
 
     public async Task<Barber> CreateAsync(Barber barber)
     {
-        if (string.IsNullOrWhiteSpace(barber.Name))
+        if (string.IsNullOrWhiteSpace(barber.FirstName))
             throw new InvalidOperationException("Nome é obrigatório");
+
+        if (string.IsNullOrWhiteSpace(barber.LastName))
+            throw new InvalidOperationException("Sobrenome é obrigatório");
 
         if (string.IsNullOrWhiteSpace(barber.Email))
             throw new InvalidOperationException("Email é obrigatório");
@@ -47,8 +50,11 @@ public class BarberService(IBarberRepository repository) : IBarberService
 
     public async Task<Barber> UpdateAsync(Barber barber)
     {
-        if (string.IsNullOrWhiteSpace(barber.Name))
+        if (string.IsNullOrWhiteSpace(barber.FirstName))
             throw new InvalidOperationException("Nome é obrigatório");
+
+        if (string.IsNullOrWhiteSpace(barber.LastName))
+            throw new InvalidOperationException("Sobrenome é obrigatório");
 
         if (string.IsNullOrWhiteSpace(barber.Email))
             throw new InvalidOperationException("Email é obrigatório");

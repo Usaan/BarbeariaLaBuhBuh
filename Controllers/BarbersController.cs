@@ -83,7 +83,8 @@ public class BarbersController(IBarberService barberService) : ControllerBase
         if (barber is null)
             return NotFound();
 
-        if (dto.Name is not null) barber.Name = dto.Name;
+        if (dto.FirstName is not null) barber.FirstName = dto.FirstName;
+        if (dto.LastName is not null) barber.LastName = dto.LastName;
         if (dto.Email is not null) barber.Email = dto.Email;
         if (dto.Phone is not null) barber.Phone = dto.Phone;
         if (dto.Bio is not null) barber.Bio = dto.Bio;

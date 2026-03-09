@@ -9,8 +9,11 @@ public class ClientService(IClientRepository repository) : IClientService
 
     public async Task<Client> CreateAsync(Client client)
     {
-        if (string.IsNullOrWhiteSpace(client.Name))
+        if (string.IsNullOrWhiteSpace(client.FirstName))
             throw new InvalidOperationException("Nome é obrigatório");
+
+        if (string.IsNullOrWhiteSpace(client.LastName))
+            throw new InvalidOperationException("Sobrenome é obrigatório");
 
         if (string.IsNullOrWhiteSpace(client.Email))
             throw new InvalidOperationException("Email é obrigatório");
@@ -39,8 +42,11 @@ public class ClientService(IClientRepository repository) : IClientService
 
     public async Task<Client> UpdateAsync(Client client)
     {
-        if (string.IsNullOrWhiteSpace(client.Name))
+        if (string.IsNullOrWhiteSpace(client.FirstName))
             throw new InvalidOperationException("Nome é obrigatório");
+
+        if (string.IsNullOrWhiteSpace(client.LastName))
+            throw new InvalidOperationException("Sobrenome é obrigatório");
 
         if (string.IsNullOrWhiteSpace(client.Email))
             throw new InvalidOperationException("Email é obrigatório");
