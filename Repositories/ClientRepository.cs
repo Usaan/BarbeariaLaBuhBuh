@@ -20,6 +20,12 @@ public class ClientRepository(BarbeariaDbContext context) : IClientRepository
         return await _context.Clients.FindAsync(id);
     }
 
+    public async Task<Client?> GetByGoogleIdAsync(string googleId)
+    {
+        return await _context.Clients.FirstOrDefaultAsync(c => c.GoogleId == googleId);
+    }
+
+
     public async Task<IEnumerable<Client>> GetAllAsync()
     {
         return await _context.Clients.ToListAsync();

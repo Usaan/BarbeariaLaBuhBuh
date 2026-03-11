@@ -18,9 +18,6 @@ public class ClientService(IClientRepository repository) : IClientService
         if (string.IsNullOrWhiteSpace(client.Email))
             throw new InvalidOperationException("Email é obrigatório");
 
-        if (string.IsNullOrWhiteSpace(client.Phone))
-            throw new InvalidOperationException("Telefone é obrigatório");
-
         if (!IsValidEmail(client.Email))
             throw new InvalidOperationException("Email inválido");
 
@@ -34,6 +31,12 @@ public class ClientService(IClientRepository repository) : IClientService
     {
         return await _repository.GetByIdAsync(id);
     }
+
+    public async Task<Client?> GetByGoogleIdAsync(string googleId)
+    {
+        return await _repository.GetByGoogleIdAsync(googleId);
+    }
+
 
     public async Task<IEnumerable<Client>> GetAllAsync()
     {
