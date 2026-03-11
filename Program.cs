@@ -5,49 +5,107 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Banco de dados
+// =========================
+// DATABASE
+// =========================
 builder.Services.AddDbContext<BarbeariaDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
-// Controllers
+// =========================
+// CONTROLLERS
+// =========================
 builder.Services.AddControllers();
 
-// OpenAPI / documentação
+// =========================
+// OPENAPI / DOCUMENTATION
+// =========================
 builder.Services.AddOpenApi();
 
-// Serviços da aplicação
+// =========================
+// APPLICATION SERVICES
+// =========================
 builder.Services.AddApplicationServices();
 
-// CORS para permitir acesso do frontend (Next.js)
+// =========================
+// CORS (Next.js frontend)
+// =========================
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.AllowAnyOrigin()
+        policy.WithOrigins(
+            "http://localhost:3000", // Next.js local
+            "https://seu-frontend.vercel.app" // alterar quando subir o front
+        )
         .AllowAnyMethod()
         .AllowAnyHeader();
     });
 });
 
+// =========================
+// HEALTH CHECK (deploy / monitoramento)
+// =========================
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
-// OpenAPI apenas em desenvolvimento
+
+// =========================
+// DOCUMENTATION
+// =========================
+app.MapOpenApi();
+app.MapScalarApiReference();
+
+
+// =========================
+// HTTPS (apenas local)
+// =========================
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.UseHttpsRedirection();
 }
 
-app.UseHttpsRedirection();
 
-// habilita CORS
+// =========================
+// CORS
+// =========================
 app.UseCors("AllowFrontend");
 
+
+// =========================
+// AUTH / AUTHORIZATION
+// =========================
 app.UseAuthorization();
 
+
+// =========================
+// ROUTES
+// =========================
 app.MapControllers();
 
-// necessário para rodar em Docker/Render
+
+// =========================
+// HEALTH CHECK ENDPOINT
+// =========================
+app.MapHealthChecks("/health");
+
+
+// =========================
+// ROOT ENDPOINT (teste rápido)
+// =========================
+app.MapGet("/", () => Results.Ok(new
+{
+    message = "API BarbeariaLaBuhBuh rodando 🚀",
+    docs = "/scalar",
+    health = "/health"
+}));
+
+
+// =========================
+// PORT (Render / Docker)
+// =========================
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 app.Urls.Add($"http://0.0.0.0:{port}");
 
