@@ -48,6 +48,7 @@ public class BarbeariaDbContext(DbContextOptions<BarbeariaDbContext> options) : 
             entity.Property(e => e.Category).IsRequired();
             entity.Property(e => e.DurationMinutes).IsRequired();
             entity.Property(e => e.Price).IsRequired().HasColumnType("decimal(10,2)");
+            entity.Property(e => e.PhotoUrl).HasMaxLength(500);
             entity.Property(e => e.IsActive).HasDefaultValue(true);
         });
 

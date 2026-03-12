@@ -92,6 +92,7 @@ public class ServicesController : ControllerBase
         if (dto.Description is not null) service.Description = dto.Description;
         if (dto.DurationMinutes is not null) service.DurationMinutes = dto.DurationMinutes.Value;
         if (dto.Price is not null) service.Price = dto.Price.Value;
+        if (dto.PhotoUrl is not null) service.PhotoUrl = dto.PhotoUrl;
         if (dto.IsActive is not null) service.IsActive = dto.IsActive.Value;
 
         try

@@ -8,6 +8,7 @@ public class Service
     public ServiceCategory Category { get; set; }
     public int DurationMinutes { get; set; }
     public decimal Price { get; set; }
+    public string PhotoUrl { get; set; } = string.Empty;
     public bool IsActive { get; set; } = true;
 
     public ICollection<AppointmentService> AppointmentServices { get; set; } = new List<AppointmentService>();
