@@ -1,3 +1,5 @@
-@BarbeariaLaBuhBuh_HostAddress = http://localhost:5095
+@baseUrl = http://localhost:5095
+@contentType = application/json
 
 ###
+GET {{baseUrl}}/api/appointments/available-slots?barberId=1&date=2026-03-15&durationMinutes=75

@@ -16,6 +16,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IClientService, ClientService>();
         services.AddScoped<IBarberService, BarberService>();
         services.AddScoped<IServiceCatalogService, ServiceCatalogService>();
+        services.AddScoped<IAppointmentsService, AppointmentsService>();
 
         return services;
     }
