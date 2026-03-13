@@ -1,5 +1,6 @@
 using BarbeariaLaBuhBuh.Data;
 using BarbeariaLaBuhBuh.Extensions;
+using BarbeariaLaBuhBuh.Services;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 
